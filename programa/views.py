@@ -9,9 +9,10 @@ from django.shortcuts import render
 
 # Create your views here.
 def lista_programas(request):
-	programas = Programas.objects.all()
-    context = {'programas': programas}
-    return render(request, 'programa/lista_programas.html', context)
+	# programas = Programa.objects.all()
+ #    context = {'programas': programas}
+    # return render(request, 'programa/lista_programas.html', context)
+    return render(request, 'programa/lista_programas.html', {})
 
 
 class ProgramaListView(APIView):
@@ -29,9 +30,9 @@ class ProgramaListView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
 
-class ProgramaView(APIView):
+# class ProgramaView(APIView):
 
-    def get(self, request, pk, format=None):
-        user = Programa.objects.get(pk=pk)
-        serializer = ProgramaSerializer(user)
-        return Response(serializer.data)
+#     def get(self, request, pk, format=None):
+#         user = Programa.objects.get(pk=pk)
+#         serializer = ProgramaSerializer(user)
+#         return Response(serializer.data)

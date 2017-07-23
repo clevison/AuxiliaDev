@@ -1,11 +1,11 @@
 # coding: utf-8
 from django.conf.urls import  url
-from programa.views import ProgramaListView, ProgramaView
+from programa.views import ProgramaListView  #, ProgramaView
 
 
 helper_patterns = [
     url(r'^programas/$', ProgramaListView.as_view(), name='programas'),
-    url(r'^programas/(?P<pk>[0-9]+)/$', ProgramaView.as_view(), name='get_programa')
+    # url(r'^programas/(?P<pk>[0-9]+)/$', ProgramaView.as_view(), name='get_programa')
 ]
 
 
