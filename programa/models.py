@@ -3,9 +3,10 @@ from django.db import models
 
 # Create your models here.
 class Programa(models.Model):
-    criador = models.ForeignKey('auth.User')
-    titulo = models.CharField(max_length=50)
-    descricao = models.TextField(verbose_name = 'descrição')
+	id_prog = models.AutoField(primary_key=True)
+	criador = models.CharField(max_length=50, verbose_name = 'Autor')
+	titulo = models.CharField(max_length=50, verbose_name = 'Título')
+	descricao = models.TextField(verbose_name = 'Descrição')
 
 def __str__(self):
 	return self.titulo

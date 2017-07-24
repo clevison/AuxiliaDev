@@ -6,4 +6,4 @@ class ProgramaSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Programa
 		depth = 1
-		fields = ['criador', 'titulo', 'descricao']
+		fields = ['id_prog','criador', 'titulo', 'descricao']
