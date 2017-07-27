@@ -4,7 +4,7 @@ from .models import Programa
 
 class ProgramaAdmin(admin.ModelAdmin):
 	model = Programa
-	list_display = ['id_prog','id_cria','criador','titulo']
+	list_display = ['id_programa','id_criador','criador','titulo']
 	# list_filter = []
 	# search_fields = []
 	save_on_top = True
