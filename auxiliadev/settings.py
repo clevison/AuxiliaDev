@@ -43,7 +43,8 @@ INSTALLED_APPS = (
     'corsheaders',
 
     'programa',
-    'usuario',
+    'selecao',
+    # 'usuario',
     
 )
 
