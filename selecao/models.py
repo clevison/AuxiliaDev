@@ -13,5 +13,11 @@ class Selecao(models.Model):
 	inicio = models.DateTimeField(verbose_name = 'Inicio')
 	fim = models.DateTimeField(verbose_name = 'Fim')
 
+
+class Participe(models.Model):
+	idParticipe = models.AutoField(primary_key=True)
+	idSelecao = models.IntegerField(verbose_name = 'Id da Seleção')
+	idUsuario = models.IntegerField(verbose_name = 'Id do Usuario')
+
 def __str__(self):
 	return self.nome

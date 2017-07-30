@@ -53,7 +53,6 @@ class ProgramaView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        print("Estou no delete")
         programa = self.get_object(pk)
         programa.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

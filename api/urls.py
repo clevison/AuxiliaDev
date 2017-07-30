@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 from programa.views import ProgramaListView, ProgramaView
-from selecao.views import SelecaoListView, SelecaoView
+from selecao.views import SelecaoListView, SelecaoView, ParticipeListView, ParticipeView
 # from usuario.views import UsuarioViewSet, GroupViewSet
 
 # helper_patterns
@@ -16,6 +16,9 @@ urlpatterns = [
     
     url(r'^selecao/$', SelecaoListView.as_view(), name='selecao'),
     url(r'^selecao/(?P<pk>[0-9]+)/$', SelecaoView.as_view(), name='get_selecao'),
+
+    url(r'^participe/$', ParticipeListView.as_view(), name='participe'),
+    url(r'^participe/(?P<pk>[0-9]+)/$', ParticipeView.as_view(), name='get_participe'),
 
     # url(r'^usuario/$', UsuarioViewSet.as_view({'get': 'list'}), name='usuario')
 ]
