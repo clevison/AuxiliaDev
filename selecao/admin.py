@@ -8,5 +8,6 @@ class SelecaoAdmin(admin.ModelAdmin):
 	# list_filter = ['inicio', 'fim']
 	search_fields = ['nome']
 	save_on_top = True
-
+	# verbose_name_plural = "Selecao"
+	
 admin.site.register(Selecao, SelecaoAdmin)
