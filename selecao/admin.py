@@ -4,8 +4,8 @@ from .models import Selecao
 # Register your models here.
 class SelecaoAdmin(admin.ModelAdmin):
 	model = Selecao
-	list_display = ['idSelecao','idPrograma','nome', 'inicio', 'fim']
-	list_filter = ['inicio', 'fim']
+	list_display = ['idSelecao','idCriador','idPrograma','nome', 'inicio', 'fim']
+	# list_filter = ['inicio', 'fim']
 	search_fields = ['nome']
 	save_on_top = True
 
