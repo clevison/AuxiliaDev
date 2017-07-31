@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
-from .serializer import SelecaoSerializer
-from .participeSerializer import ParticipeSerializer
+from .serializer import SelecaoSerializer, ParticipeSerializer, ParticipeSelecaoSerializer
 from .models import Selecao, Participe
 
 from rest_framework.response import Response
@@ -62,24 +61,29 @@ class ParticipeListView(APIView):
         serializer = self.serializer_class(Participe.objects.all(), many=True)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
+    
 
 class ParticipeView(APIView):
 
     def get(self, request, pk, format=None):
-        participe = Participe.objects.filter(idSelecao=pk)
-        serializer = ParticipeSerializer(participe, many=True)
+        selecao = Selecao.objects.filter(idSelecao=pk)
+        serializer = ParticipeSelecaoSerializer(selecao, many=True)
         return Response(serializer.data)
 
+    def post(self, request, pk, format=None):
+        selecao = Selecao.objects.get(pk)
+        print(request.data)
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            # print(serializer)
+            serializer.save()
+            # selecao.save(serializer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
+
     def delete(self, request, pk, format=None):
-        # participe = Participe.objects.get(idSelecao=idSelecao, idUsuario=idUsuario)
-        # participe = Participe.objects.filter(pk=pk)
-        participe = self.get_object(pk)
+        idUsuario =  self.request.query_params.get('idUsuario', None)
+        participe = Participe.objects.get(idSelecao=pk, idUsuario=idUsuario)
         participe.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
