@@ -53,6 +53,48 @@ class SelecaoView(APIView):
         selecao.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class ParticipantesView(APIView):
+    serializer_class = ParticipeSerializer
+
+    def get(self, request, pk, format=None):
+        selecao = Selecao.objects.filter(idSelecao=pk)
+        serializer = ParticipeSelecaoSerializer(selecao, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, pk, format=None):
+        selecao = Selecao.objects.get(idSelecao=pk)
+
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            # print(serializer)
+            serializer.save()
+            selecao.participantes.add(serializer.data["idUsuario"])
+            selecao.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            # print(serializer.data["idUsuario"])
+        else:
+            return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
+
+    def delete(self, request, pk, format=None):
+        selecao = Selecao.objects.get(idSelecao=pk)
+
+        participe = self.serializer_class(data=request.data)
+
+        if participe.is_valid():
+            idUsuario = participe.data["idUsuario"]
+            print(idUsuario)
+            selecao.participantes.remove(idUsuario)
+            selecao.save()
+        
+
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        # participe = self.serializer_class(data=request.data)
+        # idUsuario = participe.data["idUsuario"]
+        # idUsuario =  self.request.query_params.get('idUsuario', None)
+        # print(idUsuario)
+      
 
 class ParticipeListView(APIView):
     serializer_class = ParticipeSerializer
@@ -61,7 +103,13 @@ class ParticipeListView(APIView):
         serializer = self.serializer_class(Participe.objects.all(), many=True)
         return Response(serializer.data)
 
-    
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
 
 class ParticipeView(APIView):
 
@@ -71,7 +119,7 @@ class ParticipeView(APIView):
         return Response(serializer.data)
 
     def post(self, request, pk, format=None):
-        selecao = Selecao.objects.get(pk)
+        selecao = Selecao.objects.get(isSelecao = pk)
         print(request.data)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():

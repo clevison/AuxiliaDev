@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Selecao
+from .models import Selecao, Participe
 
 # Register your models here.
 class SelecaoAdmin(admin.ModelAdmin):
@@ -9,5 +9,14 @@ class SelecaoAdmin(admin.ModelAdmin):
 	search_fields = ['nome']
 	save_on_top = True
 	# verbose_name_plural = "Selecao"
+
+class ParticipanteAdmin(admin.ModelAdmin):
+	model = Participe
+	list_display = ['idUsuario']
+	# list_filter = ['inicio', 'fim']
+	# search_fields = ['nome']
+	save_on_top = True
+	# verbose_name_plural = "Selecao"
 	
 admin.site.register(Selecao, SelecaoAdmin)
+admin.site.register(Participe, ParticipanteAdmin)

@@ -22,5 +22,5 @@ class ParticipeSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Participe
 		depth = 1
-		fields = ['idUsuario','nome']
+		fields = ['idUsuario']
 		# fields = ['idParticipe','idSelecao','idUsuario']
