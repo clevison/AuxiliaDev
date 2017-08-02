@@ -12,7 +12,7 @@ class SelecaoAdmin(admin.ModelAdmin):
 
 class ParticipanteAdmin(admin.ModelAdmin):
 	model = Participe
-	list_display = ['idUsuario']
+	list_display = ['id','idUsuario']
 	# list_filter = ['inicio', 'fim']
 	# search_fields = ['nome']
 	save_on_top = True

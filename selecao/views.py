@@ -69,7 +69,9 @@ class ParticipantesView(APIView):
         if serializer.is_valid():
             # print(serializer)
             serializer.save()
-            selecao.participantes.add(serializer.data["idUsuario"])
+            participante = Participe.objects.get(idUsuario=serializer.data["idUsuario"])
+            # selecao.participantes.add(serializer.data["idUsuario"])
+            selecao.participantes.add(participante)
             selecao.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
