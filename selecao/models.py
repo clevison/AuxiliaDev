@@ -27,7 +27,7 @@ class Selecao(models.Model):
 	inicio = models.DateTimeField()
 	fim = models.DateTimeField()
 	vagas = models.IntegerField()
-	participantes = models.ManyToManyField(Participe, blank=True, null = True)
+	participantes = models.ManyToManyField(Participe, blank=True)
 
 def __str__(self):
 	return self.nome

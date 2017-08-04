@@ -9,7 +9,7 @@ from rest_framework import status
 
 from django.shortcuts import render
 from django.http import Http404
-
+ 
 
 # Create your views here.
 class SelecaoListView(APIView):
@@ -67,15 +67,19 @@ class ParticipantesView(APIView):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            # print(serializer)
-            serializer.save()
-            participante = Participe.objects.get(idUsuario=serializer.data["idUsuario"])
-            # selecao.participantes.add(serializer.data["idUsuario"])
+
+            idUsuario=serializer.data["idUsuario"]
+
+            existe = Participe.objects.filter(idUsuario=idUsuario).exists()
+            
+            if not existe:
+                serializer.save()
+
+            participante = Participe.objects.get(idUsuario=idUsuario)
             selecao.participantes.add(participante)
             selecao.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-            # print(serializer.data["idUsuario"])
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
 
@@ -86,16 +90,10 @@ class ParticipantesView(APIView):
 
         if participe.is_valid():
             idUsuario = participe.data["idUsuario"]
-            print(idUsuario)
-            selecao.participantes.remove(idUsuario)
+            participante = Participe.objects.get(idUsuario=idUsuario)
+            selecao.participantes.remove(participante)
             selecao.save()
-        
-
             return Response(status=status.HTTP_204_NO_CONTENT)
-        # participe = self.serializer_class(data=request.data)
-        # idUsuario = participe.data["idUsuario"]
-        # idUsuario =  self.request.query_params.get('idUsuario', None)
-        # print(idUsuario)
       
 
 class ParticipeListView(APIView):
@@ -125,9 +123,7 @@ class ParticipeView(APIView):
         print(request.data)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            # print(serializer)
             serializer.save()
-            # selecao.save(serializer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_409_CONFLICT)
