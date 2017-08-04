@@ -73,7 +73,8 @@ class ParticipantesView(APIView):
             existe = Participe.objects.filter(idUsuario=idUsuario).exists()
             
             if not existe:
-                serializer.save()
+                # serializer.save()
+                Participe.objects.create(idUsuario = idUsuario)
 
             participante = Participe.objects.get(idUsuario=idUsuario)
             selecao.participantes.add(participante)
